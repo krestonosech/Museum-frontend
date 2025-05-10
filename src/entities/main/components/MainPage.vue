@@ -78,7 +78,10 @@
       </div>
     </div>
   </div>
-  <ModalRegisterAuth v-model:isRegisterOpen="isRegisterOpen" />
+  <ModalRegisterAuth
+    v-model:isRegisterOpen="isRegisterOpen"
+    v-model:isRegister="isRegister"
+  />
   <ModalBuyingItem
     v-model:isitem-modal-open="isitemModalOpen"
     :date="date"
@@ -113,6 +116,7 @@
   const newsStore = useNewsStore();
   const userStore = useUserStore();
   const isRegisterOpen = ref<boolean>(false);
+  const isRegister = ref(false);
   const isModalOpen = ref<boolean>(false);
   const items = computed<ListItemProps[] | undefined>(() => eventsStore.upcomingEvents);
   const itemPrice = ref<number>(0);

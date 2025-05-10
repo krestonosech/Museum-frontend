@@ -42,10 +42,7 @@
           <p class="button-group__button">ЛИЧНЫЙ КАБИНЕТ</p>
           <img :src="isShowProfile ? Up : Down" />
         </div>
-        <NavbarDropdown
-          v-model:isBurgerOpen="isBurgerOpen"
-          :is-show-profile="isShowProfile"
-        />
+        <NavbarDropdown :is-show-profile="isShowProfile" />
       </div>
       <p
         v-if="!userStore.user.isAdmin && router.currentRoute.value.name !== 'review'"

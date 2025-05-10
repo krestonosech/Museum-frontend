@@ -61,8 +61,8 @@
     </div>
   </Transition>
   <ModalRegisterAuth
-    :is="isRegister"
     v-model:isRegisterOpen="isRegisterOpen"
+    v-model:isRegister="isRegister"
   />
 </template>
 

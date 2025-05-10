@@ -16,15 +16,11 @@
 
 <script lang="ts" setup>
   import { Modal } from '@/components/ui/modal';
-  import { defineModel, ref, defineProps, computed } from 'vue';
+  import { defineModel, ref } from 'vue';
   import Register from './Register.vue';
 
-  const props = defineProps<{
-    is?: boolean;
-  }>();
-
   const isRegisterOpen = defineModel<boolean>('isRegisterOpen', { required: true });
-  const isRegister = computed(() => props.is);
+  const isRegister = defineModel<boolean>('isRegister', { required: true });
 
   const isApply = ref<boolean>(false);
 
