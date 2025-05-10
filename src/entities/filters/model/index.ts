@@ -14,7 +14,7 @@ export const useFiltersStore = defineStore('filters', () => {
   const { storage, reset: resetStorage } = useStorage<StorageFilter>('global-filters', {
     userId: userStore.user.id,
     filters: {
-      page: 'main-page',
+      page: 'main',
     },
   });
 
@@ -23,7 +23,7 @@ export const useFiltersStore = defineStore('filters', () => {
   }
 
   const filters = reactive<Filters>({
-    page: storage.value.filters.page || 'main-page',
+    page: storage.value.filters.page || 'main',
   });
 
   watch(filters, () => {

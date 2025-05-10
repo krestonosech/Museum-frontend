@@ -14,3 +14,13 @@ export interface Requests {
   date: string;
   email: string;
 }
+
+export interface Reviews {
+  id: number;
+  typeOrganization: string;
+  sex: string;
+  age: number;
+  overview: string;
+  review: string;
+  region: string;
+}

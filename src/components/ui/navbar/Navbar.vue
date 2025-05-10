@@ -2,7 +2,7 @@
   <div class="navbar">
     <RouterLink
       :to="'/main'"
-      @click="filterStore.page = 'main-page'"
+      @click="filterStore.page = 'main'"
     >
       <img
         :src="Logo"

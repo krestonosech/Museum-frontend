@@ -11,8 +11,8 @@
         style="text-decoration: none"
         @click="emit('close')"
       >
-        <Title
-          xs
+        <Text
+          xl
           :text="userStore.user.username"
         />
       </RouterLink>
@@ -21,10 +21,10 @@
         style="padding: 10px 20px"
         :text="userStore.user.email"
       />
-      <Title
+      <Text
         class="profile-dropdown__item"
         text="Выйти"
-        xs
+        xl
         @click="logout"
       />
     </div>
@@ -67,7 +67,7 @@
 </template>
 
 <script lang="ts" setup>
-  import { ModalRegisterAuth, Text, Title } from '@/components';
+  import { ModalRegisterAuth, Text } from '@/components';
   import { useUserStore } from '@/entities/user';
   import { router } from '@/router';
   import { ref, defineModel, defineEmits } from 'vue';

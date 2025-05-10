@@ -43,8 +43,8 @@
   .xs-title {
     font-family: 'Roboto';
     font-weight: 500;
-    font-size: 20px;
-    line-height: 24px;
+    font-size: 24px;
+    line-height: 32px;
   }
 
   @media (max-width: 1440px) {

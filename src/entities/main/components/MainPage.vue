@@ -53,6 +53,29 @@
       type="main-images"
     />
   </div>
+  <div
+    v-if="!userStore.user.isAdmin"
+    class="main-page__review"
+  >
+    <Title text="Обратная связь" />
+    <div class="main-page__review-element">
+      <div class="main-page__review-text">
+        <Text
+          text="Деятельность Этнографического музея народов Забайкалья осуществляется при поддержке министерства культуры Бурятии и главы ведомства Соелмы Дагаевой. Министерство успешно реализует и другие творческие проекты, связанные с федеральными программами, в том числе, федеральным проектом «Семейные ценности и инфраструктура культуры» национального проекта «Семья»"
+        />
+        <Text
+          xl
+          text="Мы всегда рады видеть вас в нашем музее!Оценить работу комплекса и оставить свой отзыв вы можете пройдя тест, отсканировав QR-код →"
+        />
+      </div>
+      <img
+        :src="QR"
+        alt="QR"
+        style="width: 332px; cursor: pointer"
+        @click="router.push('/review')"
+      />
+    </div>
+  </div>
   <ModalRegisterAuth v-model:isRegisterOpen="isRegisterOpen" />
   <ModalBuyingItem
     v-model:isitem-modal-open="isitemModalOpen"
@@ -73,13 +96,16 @@
     ModalRegisterAuth,
     ModalBuyingTicket,
     Title,
+    Text,
   } from '@/components';
   import { DESCRIPTION_TEXT, animals, images } from '@/entities/consts';
   import { EventsMainTitle, useEventsStore } from '@/entities/events';
   import { News } from '@/entities/news';
+  import QR from '@/assets/main-images/qr-code 1.png';
   import { useNewsStore } from '@/entities/news/model';
   import { useUserStore } from '@/entities/user';
   import { computed, onMounted, ref } from 'vue';
+  import { router } from '@/router';
 
   const eventsStore = useEventsStore();
   const newsStore = useNewsStore();

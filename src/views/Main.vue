@@ -49,6 +49,10 @@
         v-if="menuItem === 'БИЛЕТЫ'"
         :items="myRequests"
       />
+      <MainPageTableReviews
+        v-if="menuItem === 'БИЛЕТЫ' && reviews"
+        :items="reviews"
+      />
       <div v-if="menuItem === 'ПУБЛИКАЦИИ'">
         <Excursions />
         <Events />
@@ -72,7 +76,8 @@
 <script lang="ts" setup>
   import { useEventsStore } from '@/entities/events';
   import Events from './Events.vue';
-  import { useUserStore } from '@/entities/user';
+  import { Reviews, useUserStore } from '@/entities/user';
+  import { axios } from '@/plugins/axios';
   import { computed, onMounted, ref } from 'vue';
   import {
     Button,
@@ -85,6 +90,7 @@
   import Excursions from './Excursions.vue';
   import { MainPage, MainPageTable } from '@/entities/main';
   import News from './News.vue';
+  import MainPageTableReviews from '@/entities/main/components/MainPageTableReviews.vue';
 
   const eventsStore = useEventsStore();
   const userStore = useUserStore();
@@ -92,12 +98,19 @@
   const isModalAddingNewsOpen = ref(false);
   const myRequests = computed(() => userStore.user.requests);
   const menuItem = ref('БИЛЕТЫ');
-
+  const reviews = ref<Reviews[]>();
   const menus = ['БИЛЕТЫ', 'ПУБЛИКАЦИИ', 'НОВОСТИ'];
 
   onMounted(async () => {
     await eventsStore.fetchAllArchiveEvents();
     if (userStore.user.username) await userStore.myRequests();
+    const config = {
+      headers: {
+        Authorization: `Bearer ${localStorage.getItem('token')}`,
+      },
+    };
+    const response = await axios.post('reviews', {}, config);
+    reviews.value = response.data;
   });
 
   function close() {
@@ -109,6 +122,21 @@
 
 <style lang="scss">
   .main-page {
+    &__review {
+      display: flex;
+      flex-direction: column;
+      gap: 20px;
+    }
+    &__review-text {
+      display: flex;
+      flex-direction: column;
+      gap: 40px;
+      width: 900px;
+    }
+    &__review-element {
+      display: flex;
+      justify-content: space-between;
+    }
     &__gallery {
       display: flex;
       flex-direction: column;

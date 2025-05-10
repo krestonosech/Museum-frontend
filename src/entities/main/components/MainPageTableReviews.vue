@@ -1,6 +1,6 @@
 <template>
   <div class="admin-panel">
-    <Title text="Билеты" />
+    <Title text="Отзывы" />
     <table>
       <thead>
         <tr class="admin-panel__thead">
@@ -8,25 +8,37 @@
             style="width: 160px"
             class="admin-panel__thead-th"
           >
-            <p class="date">дата</p>
+            <p class="date">Тип организации</p>
           </th>
           <th
-            style="width: 300px"
+            style="width: 100px"
             class="admin-panel__thead-th description__text"
           >
-            адрес электронной почты
+            Пол
           </th>
           <th
-            style="width: 683px"
+            style="width: 100px"
             class="admin-panel__thead-th description__text"
           >
-            событие
+            Возраст
           </th>
           <th
             style="width: 187px"
             class="admin-panel__thead-th description__text"
           >
-            количество билетов
+            Регион
+          </th>
+          <th
+            style="width: 187px"
+            class="admin-panel__thead-th description__text"
+          >
+            Описание
+          </th>
+          <th
+            style="width: 187px"
+            class="admin-panel__thead-th description__text"
+          >
+            Общая оценка
           </th>
         </tr>
       </thead>
@@ -38,13 +50,15 @@
         >
           <td
             class="date"
-            data-label="дата"
+            data-label="Тип организации"
           >
-            {{ item.date }}
+            {{ item.typeOrganization }}
           </td>
-          <td data-label="адрес электронной почты">{{ item.email }}</td>
-          <td data-label="событие">{{ item.eventsName }}</td>
-          <td data-label="количество билетов">{{ item.count }}</td>
+          <td data-label="Пол">{{ item.sex }}</td>
+          <td data-label="Возраст">{{ item.age }}</td>
+          <td data-label="Регион">{{ item.region }}</td>
+          <td data-label="Описание">{{ item.review }}</td>
+          <td data-label="Общая оценка">{{ item.overview }}</td>
         </tr>
       </tbody>
     </table>
@@ -52,12 +66,12 @@
 </template>
 
 <script setup lang="ts">
-  import Title from '@/components/Title.vue';
-  import { Requests } from '@/entities/user';
+  import { Title } from '@/components';
+  import { Reviews } from '@/entities/user';
   import { defineProps } from 'vue';
 
   defineProps<{
-    items: Requests[];
+    items: Reviews[];
   }>();
 </script>
 

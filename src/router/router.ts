@@ -59,6 +59,12 @@ const routes: Array<RouteRecordRaw> = [
     component: () => import('../views/PathToMuseum.vue'),
     meta: { requiresAuth: true },
   },
+  {
+    path: '/review',
+    name: 'review',
+    component: () => import('../views/Review.vue'),
+    meta: { requiresAuth: true },
+  },
 ];
 
 const router = createRouter({

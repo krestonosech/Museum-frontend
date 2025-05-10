@@ -51,7 +51,7 @@
         router.currentRoute.value.fullPath.includes('auth')
       ) {
         localStorage.removeItem('token');
-        filterStore.page = 'main-page';
+        filterStore.page = 'main';
         token.value = null;
       }
       if (router.currentRoute.value.fullPath.includes('main')) eventsStore.fetchAllEvents('Все');

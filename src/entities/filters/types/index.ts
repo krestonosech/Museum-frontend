@@ -1,6 +1,6 @@
 export interface Filters {
   page:
-    | 'main-page'
+    | 'main'
     | 'about-museum'
     | 'etnozoo'
     | 'excursions'

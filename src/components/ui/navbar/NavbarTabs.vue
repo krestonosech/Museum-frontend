@@ -34,6 +34,7 @@
         </p>
       </RouterLink>
       <div
+        v-if="router.currentRoute.value.name !== 'review'"
         class="button-group__profile-wrapper"
         @mousedown="isShowProfile = !isShowProfile"
       >
@@ -47,7 +48,7 @@
         />
       </div>
       <p
-        v-if="!userStore.user.isAdmin"
+        v-if="!userStore.user.isAdmin && router.currentRoute.value.name !== 'review'"
         class="button-group__profile-wrapper"
       >
         +7(3012) 33-25-10
@@ -73,6 +74,7 @@
 
   onMounted(() => {
     if (localStorage.getItem('token')) userStore.profileMe();
+    isShowProfile.value = false;
   });
 
   const buttons: { label: string; id: Filters['page'] }[] = [
@@ -86,6 +88,9 @@
   const allButtons = computed<{ label: string; id: Filters['page'] }[]>(() => {
     if (userStore.user.isAdmin === 1) {
       return [];
+    }
+    if (router.currentRoute.value.name === 'review') {
+      return [{ label: 'НА ГЛАВНУЮ', id: 'main' }];
     }
     return buttons;
   });
