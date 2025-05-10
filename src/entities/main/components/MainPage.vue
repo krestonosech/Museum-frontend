@@ -68,12 +68,14 @@
           text="Мы всегда рады видеть вас в нашем музее!Оценить работу комплекса и оставить свой отзыв вы можете пройдя тест, отсканировав QR-код →"
         />
       </div>
-      <img
-        :src="QR"
-        alt="QR"
-        style="width: 332px; cursor: pointer"
-        @click="router.push('/review')"
-      />
+      <div class="main-page__review-qr">
+        <img
+          :src="QR"
+          alt="QR"
+          style="width: 332px; cursor: pointer"
+          @click="router.push('/review')"
+        />
+      </div>
     </div>
   </div>
   <ModalRegisterAuth v-model:isRegisterOpen="isRegisterOpen" />

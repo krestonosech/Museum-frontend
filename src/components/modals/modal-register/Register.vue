@@ -90,6 +90,30 @@
     async () => {
       if (isRegister.value)
         try {
+          if (isRegister.value && !email.value.includes('@')) {
+            return showNotification({
+              text: 'Введите правильный формат почты!',
+              type: 'error',
+            });
+          }
+          if (isRegister.value && username.value.length < 6) {
+            return showNotification({
+              text: 'Недостаточное количество символов в имени!',
+              type: 'error',
+            });
+          }
+          if (isRegister.value && (!password.value || !username.value || !email.value)) {
+            return showNotification({
+              text: 'Не все данные введены!',
+              type: 'error',
+            });
+          }
+          if (isRegister.value && password.value !== confirmPassword.value) {
+            return showNotification({
+              text: 'Пароли не равны!',
+              type: 'error',
+            });
+          }
           const data = {
             username: username.value,
             password: password.value,
@@ -111,8 +135,14 @@
           });
         }
       try {
+        if (!isRegister.value && (!password.value || !email.value)) {
+          return showNotification({
+            text: 'Не все данные введены!',
+            type: 'error',
+          });
+        }
         const token = await userStore.loginUser(email.value, password.value);
-        if (token) {
+        if (!isRegister.value && token) {
           localStorage.setItem('token', token);
         } else return Error;
         router.push('/main');

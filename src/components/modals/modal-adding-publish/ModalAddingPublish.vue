@@ -19,11 +19,18 @@
         class="register__input"
         placeholder="Название"
       />
-      <textarea
+      <select
         v-model="type"
         class="register__input"
-        placeholder="Тег"
-      />
+      >
+        <option
+          v-for="(item, index) in events"
+          :key="index"
+          :value="item"
+        >
+          {{ item }}
+        </option>
+      </select>
       <VueDatePicker
         v-model="date"
         multi-calendars
@@ -43,10 +50,11 @@
 <script lang="ts" setup>
   import VueDatePicker from '@vuepic/vue-datepicker';
   import '@vuepic/vue-datepicker/dist/main.css';
-  import { defineModel, ref, defineEmits, onMounted, defineProps, watch } from 'vue';
+  import { defineModel, ref, defineEmits, onMounted, defineProps, watch, computed } from 'vue';
   import { axios } from '@/plugins/axios';
   import { showNotification } from '@/plugins/notifications';
   import { Modal } from '@/components';
+  import { EVENTS_BUTTONS } from '@/entities/consts';
 
   const isModalAddingOpen = defineModel<boolean>('isModalAddingOpen', { required: true });
   const props = defineProps<{
@@ -60,9 +68,10 @@
   const emit = defineEmits(['close', 'success']);
   const typePublish = ref('');
   const name = ref('');
-  const type = ref('');
+  const type = ref('Фестиваль');
   const date = ref();
   const description = ref('');
+  const events = computed(() => EVENTS_BUTTONS.slice(1, EVENTS_BUTTONS.length));
 
   const months = [
     'января',
@@ -240,13 +249,50 @@
       border-bottom-width: 1px;
     }
 
-    &__input::placeholder {
-      text-align: center;
-    }
-
     &__input:focus {
       outline: none;
       border-bottom: solid 1px #bababa;
     }
+  }
+  select {
+    width: 100%;
+    border: none;
+    padding: 10px;
+    border-bottom: solid black 1px;
+    font-family: 'Roboto';
+    font-weight: 300;
+    font-size: 20px;
+    line-height: 24px;
+    appearance: none;
+    -webkit-appearance: none;
+    -moz-appearance: none;
+  }
+  select:active {
+    width: 100%;
+    border: none;
+    padding: 10px;
+    border-bottom: solid black 1px;
+  }
+  option {
+    font-family: 'Roboto';
+    font-weight: 300;
+    font-size: 20px;
+    line-height: 24px;
+  }
+  textarea:focus,
+  textarea:active,
+  select:focus,
+  select:active {
+    outline: none;
+    border: none;
+    box-shadow: none;
+    border-bottom: solid black 1px;
+  }
+  textarea {
+    font-family: 'Roboto';
+    font-weight: 300;
+    font-size: 20px;
+    line-height: 24px;
+    padding: 10px;
   }
 </style>

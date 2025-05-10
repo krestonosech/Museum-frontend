@@ -80,14 +80,16 @@
   const emit = defineEmits(['close']);
 
   function logout() {
+    router.push('/main');
     localStorage.removeItem('token');
+    if (userStore.user.isAdmin) {
+      location.reload();
+    }
     userStore.user.email = '';
     userStore.user.requests = [];
-    userStore.user.username = '';
     userStore.user.id = 0;
-    router.push('/main');
+    userStore.user.username = '';
     emit('close');
-    location.reload();
   }
 </script>
 <style lang="scss" scoped>

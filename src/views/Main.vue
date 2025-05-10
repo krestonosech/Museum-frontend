@@ -33,7 +33,7 @@
           style="height: 40px"
           @click="isModalAddingOpen = true"
         >
-          ДОБАВИТЬ ПУБЛИКАЦЮ
+          ДОБАВИТЬ СОБЫТИЕ
         </Button>
         <Button
           v-if="menuItem === 'НОВОСТИ'"
@@ -66,10 +66,17 @@
   <ModalAddingNews
     :is-modal-adding-news-open="isModalAddingNewsOpen"
     @close="close"
+    @success="async () => await newsStore.fetchAllNews()"
   />
   <ModalAddingPublish
     :is-modal-adding-open="isModalAddingOpen"
     @close="close"
+    @success="
+      async () => {
+        await eventsStore.fetchAllEvents();
+        await eventsStore.fetchAllArchiveEvents();
+      }
+    "
   />
 </template>
 
@@ -91,7 +98,9 @@
   import { MainPage, MainPageTable } from '@/entities/main';
   import News from './News.vue';
   import MainPageTableReviews from '@/entities/main/components/MainPageTableReviews.vue';
+  import { useNewsStore } from '@/entities/news/model';
 
+  const newsStore = useNewsStore();
   const eventsStore = useEventsStore();
   const userStore = useUserStore();
   const isModalAddingOpen = ref(false);
@@ -202,10 +211,32 @@
     }
   }
 
+  @media (max-width: 1440px) {
+    .main-page {
+      &__review-element {
+        display: flex;
+        gap: 20px;
+      }
+    }
+  }
+
   @media (max-width: 750px) {
-    .main-page__description {
-      display: flex;
-      width: auto;
+    .main-page {
+      &__description {
+        display: flex;
+        width: auto;
+      }
+      &__review-element {
+        display: flex;
+        flex-direction: column;
+      }
+      &__review-text {
+        width: inherit;
+      }
+      &__review-qr {
+        display: flex;
+        justify-content: center;
+      }
     }
   }
 </style>

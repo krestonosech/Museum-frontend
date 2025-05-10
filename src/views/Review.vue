@@ -201,7 +201,7 @@
       gap: 20px;
       align-items: center;
       justify-content: center;
-      width: 1132px;
+      max-width: 1132px;
       height: 85vh;
     }
     &__test {
@@ -252,5 +252,13 @@
     border: none;
     box-shadow: none;
     border-bottom: solid black 1px;
+  }
+
+  @media (max-width: 750px) {
+    .review {
+      &__test {
+        height: 100vh;
+      }
+    }
   }
 </style>

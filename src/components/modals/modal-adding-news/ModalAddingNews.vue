@@ -67,7 +67,29 @@
   function onFileChange(event: Event) {
     const target = event.target as HTMLInputElement;
     if (target.files && target.files[0]) {
-      image.value = target.files[0];
+      const file = target.files[0];
+      const img = new Image();
+
+      img.onload = () => {
+        if (img.width > img.height) {
+          image.value = file;
+        } else {
+          image.value = null;
+          showNotification({
+            text: 'Пожалуйста, выберите горизонтальное изображение.',
+            type: 'error',
+          });
+          if (target) target.value = '';
+        }
+      };
+
+      const reader = new FileReader();
+      reader.onload = e => {
+        if (e.target?.result) {
+          img.src = e.target.result as string;
+        }
+      };
+      reader.readAsDataURL(file);
     } else {
       image.value = null;
     }
@@ -165,10 +187,6 @@
       border-bottom-width: 1px;
     }
 
-    &__input::placeholder {
-      text-align: center;
-    }
-
     &__input:focus {
       outline: none;
       border-bottom: solid 1px #bababa;
@@ -178,5 +196,21 @@
       outline: none;
       border-bottom: solid 1px #bababa;
     }
+  }
+  textarea:focus,
+  textarea:active,
+  select:focus,
+  select:active {
+    outline: none;
+    border: none;
+    box-shadow: none;
+    border-bottom: solid black 1px;
+  }
+  textarea {
+    font-family: 'Roboto';
+    font-weight: 300;
+    font-size: 20px;
+    line-height: 24px;
+    padding: 10px;
   }
 </style>
