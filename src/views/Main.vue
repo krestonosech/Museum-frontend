@@ -78,7 +78,7 @@
   import Events from './Events.vue';
   import { Reviews, useUserStore } from '@/entities/user';
   import { axios } from '@/plugins/axios';
-  import { computed, onMounted, ref } from 'vue';
+  import { computed, onMounted, ref, watch } from 'vue';
   import {
     Button,
     ModalAddingPublish,
@@ -104,14 +104,23 @@
   onMounted(async () => {
     await eventsStore.fetchAllArchiveEvents();
     if (userStore.user.username) await userStore.myRequests();
-    const config = {
-      headers: {
-        Authorization: `Bearer ${localStorage.getItem('token')}`,
-      },
-    };
-    const response = await axios.post('reviews', {}, config);
-    reviews.value = response.data;
   });
+
+  watch(
+    () => userStore.user.username,
+    async () => {
+      if (userStore.user.isAdmin && localStorage.getItem('token')) {
+        const config = {
+          headers: {
+            Authorization: `Bearer ${localStorage.getItem('token')}`,
+          },
+        };
+        const response = await axios.post('reviews', {}, config);
+        reviews.value = response.data;
+      }
+    },
+    { deep: true, immediate: true }
+  );
 
   function close() {
     isModalAddingOpen.value = false;

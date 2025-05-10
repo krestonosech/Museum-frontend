@@ -42,6 +42,13 @@
       });
     }
   }, 144000);
+  window.addEventListener('load', () => {
+    const firstRunKey = 'projectFirstRunDone';
+    if (!localStorage.getItem(firstRunKey)) {
+      localStorage.removeItem('token');
+      localStorage.setItem(firstRunKey, 'true');
+    }
+  });
   watch(
     () => router.currentRoute.value.fullPath,
     () => {
