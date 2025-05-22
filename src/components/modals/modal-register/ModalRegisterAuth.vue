@@ -2,6 +2,7 @@
   <Modal
     v-model:open="isRegisterOpen"
     :apply-button="`${isRegister ? 'Зарегистрироваться' : 'Войти'}`"
+    warning
     title="Личный кабинет"
     @close="closeModal"
     @apply="apply"

@@ -18,6 +18,7 @@
       </RouterLink>
       <Text
         v-if="!userStore.user.isAdmin"
+        xl
         style="padding: 10px 20px"
         :text="userStore.user.email"
       />
@@ -34,30 +35,28 @@
       v-if="isShowProfile && !userStore.user.username"
       class="profile-dropdown"
     >
-      <div
+      <Text
         v-if="!userStore.user.isAdmin"
         class="profile-dropdown__item"
-        style="text-decoration: none"
+        text="Авторизация"
+        xl
         @click="
           isRegisterOpen = true;
           isRegister = false;
           isApply = !isApply;
         "
-      >
-        Авторизация
-      </div>
-      <div
+      />
+      <Text
         v-if="!userStore.user.isAdmin"
         class="profile-dropdown__item"
-        style="text-decoration: none"
+        text="Регистрация"
+        xl
         @click="
           isRegisterOpen = true;
           isRegister = true;
           isApply = !isApply;
         "
-      >
-        Регистрация
-      </div>
+      />
     </div>
   </Transition>
   <ModalRegisterAuth

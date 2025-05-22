@@ -65,6 +65,12 @@ const routes: Array<RouteRecordRaw> = [
     component: () => import('../views/Review.vue'),
     meta: { requiresAuth: true },
   },
+  {
+    path: '/work-time',
+    name: 'work-time',
+    component: () => import('../views/WorkTime.vue'),
+    meta: { requiresAuth: true },
+  },
 ];
 
 const router = createRouter({

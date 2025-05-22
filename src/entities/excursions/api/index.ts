@@ -13,7 +13,24 @@ export async function fetchExcursions(item?: string, search?: string) {
   } catch {
     showNotification({
       type: 'error',
-      text: 'Не удалось запросить фотографии!',
+      text: 'Не удалось запросить экскурсии!',
+    });
+  }
+}
+
+export async function fetchExcursionsRequests(username?: string) {
+  try {
+    const config = {
+      headers: {
+        Authorization: `Bearer ${localStorage.getItem('token')}`,
+      },
+    };
+    const response = await axios.post('/excursion-requests', { username }, config);
+    return response.data;
+  } catch {
+    showNotification({
+      type: 'error',
+      text: 'Не удалось запросить записи на экскурсии!',
     });
   }
 }

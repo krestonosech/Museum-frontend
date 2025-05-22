@@ -36,6 +36,17 @@
       <div
         v-if="router.currentRoute.value.name !== 'review'"
         class="button-group__profile-wrapper"
+        @mousedown="isShowUsersDropdown = !isShowUsersDropdown"
+      >
+        <div class="button-group__profile-wrapper-div">
+          <p class="button-group__button">ПОЛЬЗОВАТЕЛЯМ</p>
+          <img :src="isShowUsersDropdown ? Up : Down" />
+        </div>
+        <NavbarDropdownUsers :is-show-profile="isShowUsersDropdown" />
+      </div>
+      <div
+        v-if="router.currentRoute.value.name !== 'review'"
+        class="button-group__profile-wrapper"
         @mousedown="isShowProfile = !isShowProfile"
       >
         <div class="button-group__profile-wrapper-div">
@@ -63,11 +74,13 @@
   import NavbarDropdown from './NavbarDropdown.vue';
   import Down from '@/assets/icons/chevron-down.svg';
   import Up from '@/assets/icons/chevron-up.svg';
+  import NavbarDropdownUsers from './NavbarDropdownUsers.vue';
 
   const filterStore = useFiltersStore();
   const userStore = useUserStore();
   const isBurgerOpen = ref(false);
   const isShowProfile = ref(false);
+  const isShowUsersDropdown = ref(false);
 
   onMounted(() => {
     if (localStorage.getItem('token')) userStore.profileMe();
@@ -79,7 +92,6 @@
     { label: 'ЭТНОЗООСАД', id: 'etnozoo' },
     { label: 'ЭКСКУРСИИ', id: 'excursions' },
     { label: 'СОБЫТИЯ', id: 'events' },
-    { label: 'КАК ДОБРАТЬСЯ', id: 'path-to-museum' },
   ];
 
   const allButtons = computed<{ label: string; id: Filters['page'] }[]>(() => {

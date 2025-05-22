@@ -1,11 +1,13 @@
 import { defineStore } from 'pinia';
 import { computed, ref } from 'vue';
 
-import { fetchExcursions } from './../api';
+import { fetchExcursions, fetchExcursionsRequests } from './../api';
 import { ListItemProps } from '@/components/ui/list/types';
+import { ExcursionsRequests } from '../types';
 
 export const useExcursionsStore = defineStore('excursions', () => {
   const excursionsStorage = ref<ListItemProps[]>();
+  const excursionsRequestsStorage = ref<ExcursionsRequests[]>();
   const isFetching = computed(() => excursionsStorage.value !== null);
   const failedAuthDcoMessage = ref<string>('');
   const loading = ref<boolean>(false);
@@ -14,6 +16,10 @@ export const useExcursionsStore = defineStore('excursions', () => {
   const excursions = computed(() => ({
     excursions: excursionsStorage.value,
     loading: loading.value,
+  }));
+
+  const excursionsRequests = computed(() => ({
+    excursions: excursionsRequestsStorage.value,
   }));
 
   async function fetchAllExcursions(
@@ -37,12 +43,27 @@ export const useExcursionsStore = defineStore('excursions', () => {
       }
   }
 
+  async function fetchAllExcursionsRequests(username?: string) {
+    try {
+      excursionsRequestsStorage.value = await fetchExcursionsRequests(username);
+
+      return excursionsRequests.value.excursions;
+    } catch (error) {
+      if (error instanceof Error) {
+        failedAuthDcoMessage.value = error.message;
+      }
+      return undefined;
+    }
+  }
+
   return {
     flag,
     loading,
     excursions,
+    excursionsRequests,
     isFetching,
     failedAuthDcoMessage,
     fetchAllExcursions,
+    fetchAllExcursionsRequests,
   };
 });
