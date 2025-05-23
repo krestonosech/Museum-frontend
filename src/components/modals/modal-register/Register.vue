@@ -142,7 +142,7 @@
           });
         }
         const token = await userStore.loginUser(email.value, password.value);
-        if (!isRegister.value && token) {
+        if (token) {
           localStorage.setItem('token', token);
         } else return Error;
         router.push('/main');
@@ -150,16 +150,21 @@
           text: 'Авторизация прошла успешно',
           type: 'success',
         });
+        emit('success');
+        closeModal();
       } catch (err) {
         showNotification({
           text: 'Не удалось авторизироваться!',
           type: 'error',
         });
       }
-      emit('success');
       await userStore.myRequests();
     }
   );
+
+  function closeModal() {
+    isRegister.value = false;
+  }
 </script>
 
 <style lang="scss" scoped>

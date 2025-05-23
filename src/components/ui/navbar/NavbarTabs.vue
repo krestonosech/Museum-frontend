@@ -90,6 +90,7 @@
   const buttons: { label: string; id: Filters['page'] }[] = [
     { label: 'О МУЗЕЕ', id: 'about-museum' },
     { label: 'ЭТНОЗООСАД', id: 'etnozoo' },
+    { label: 'НОВОСТИ', id: 'news' },
     { label: 'ЭКСКУРСИИ', id: 'excursions' },
     { label: 'СОБЫТИЯ', id: 'events' },
   ];
