@@ -13,15 +13,15 @@
 
 <script lang="ts" setup>
   import { PageContent, Title } from '@/components';
-  import { NewsItem, NewsProp } from '@/entities/news';
+  import { NewsItem } from '@/entities/news';
   import { useNewsStore } from '@/entities/news/model';
-  import { onMounted, ref } from 'vue';
+  import { computed, onMounted } from 'vue';
 
   const newsStore = useNewsStore();
-  const items = ref<NewsProp[]>();
+  const items = computed(() => newsStore.news);
 
   onMounted(async () => {
-    items.value = await newsStore.fetchAllNews();
+    await newsStore.fetchAllNews();
   });
 </script>
 

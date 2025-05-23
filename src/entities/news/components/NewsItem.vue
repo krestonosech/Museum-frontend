@@ -43,6 +43,7 @@
   <ModalAddingNews
     :id="id"
     v-model:is-modal-adding-news-open="isOpenChangeModal"
+    :is-delete-item="true"
     :text="text"
     :title="title"
     :description="description"

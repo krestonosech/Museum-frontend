@@ -3,7 +3,7 @@
     v-model:open="isModalAddingNewsOpen"
     :apply-button="isChange ? 'Изменить' : 'Добавить'"
     :title="isChange ? 'Изменить новость' : 'Добавить новость'"
-    is-delete-item
+    :is-delete-item="isDeleteItem"
     @delete="deleteNews"
     @close="closeModal"
     @apply="addRequest"
@@ -48,6 +48,7 @@
     description?: string;
     image?: string;
     isChange?: boolean;
+    isDeleteItem?: boolean;
   }>();
   const emit = defineEmits(['close', 'success']);
   const title = ref('');

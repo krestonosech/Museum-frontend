@@ -34,7 +34,7 @@
         </p>
       </RouterLink>
       <div
-        v-if="router.currentRoute.value.name !== 'review'"
+        v-if="router.currentRoute.value.name !== 'review' && !userStore.user.isAdmin"
         class="button-group__profile-wrapper"
         @mousedown="isShowUsersDropdown = !isShowUsersDropdown"
       >
