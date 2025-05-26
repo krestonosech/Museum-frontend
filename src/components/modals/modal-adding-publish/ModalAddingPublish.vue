@@ -3,7 +3,7 @@
     v-model:open="isModalAddingOpen"
     :apply-button="isChange ? 'Изменить' : 'Добавить'"
     :title="isChange ? 'Изменить событие' : 'Добавить событие'"
-    is-delete-item
+    :is-delete-item="isDeleteItem"
     @delete="deletePublish"
     @close="closeModal"
     @apply="addRequest"
@@ -64,6 +64,7 @@
     date?: string;
     name?: string;
     isChange?: boolean;
+    isDeleteItem?: boolean;
   }>();
   const emit = defineEmits(['close', 'success']);
   const typePublish = ref('');
@@ -168,6 +169,11 @@
   function closeModal() {
     isModalAddingOpen.value = false;
     emit('close');
+    typePublish.value = '';
+    name.value = '';
+    type.value = 'Фестиваль';
+    date.value = '';
+    description.value = '';
   }
 
   async function addRequest() {

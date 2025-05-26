@@ -28,6 +28,7 @@
   <ModalAddingPublish
     :id="id"
     v-model:is-modal-adding-open="isOpenChangeModal"
+    :is-delete-item="true"
     :name="name"
     :type="type"
     :date="date"

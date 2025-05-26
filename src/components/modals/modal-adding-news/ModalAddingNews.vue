@@ -99,6 +99,10 @@
   function closeModal() {
     isModalAddingNewsOpen.value = false;
     emit('close');
+    title.value = '';
+    text.value = '';
+    description.value = '';
+    image.value = null;
   }
 
   async function addRequest() {
